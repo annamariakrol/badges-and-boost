@@ -1,6 +1,6 @@
 # Badges & boost
 
-Stakeholder one-pager: **DP Payments visibility in search scoring** — payment signals, weights, coverage; backend scope (`recommended` sorter in `search_bridge.yml`), snapshot metrics.
+Stakeholder one-pager: **DP Payments visibility in search scoring** — payment signals, weights, coverage, snapshot metrics.
 
 ## View in browser (no clone)
 
