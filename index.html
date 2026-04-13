@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>DP Payments — Search badges &amp; ranking factors</title>
+  <title>DP Payments — Trust in search &amp; ranking impact</title>
   <style>
     :root {
       --bg: #0f172a;
@@ -23,11 +23,11 @@
       color: var(--text);
       line-height: 1.6;
       padding: 2rem;
-      max-width: 1080px;
+      max-width: 960px;
       margin: 0 auto;
     }
-    h1 { font-size: 1.75rem; font-weight: 700; color: var(--accent); margin-bottom: 0.25rem; }
-    .subtitle { font-size: 0.95rem; color: var(--muted); margin-bottom: 1.5rem; }
+    h1 { font-size: 1.65rem; font-weight: 700; color: var(--accent); margin-bottom: 0.35rem; }
+    .subtitle { font-size: 0.9rem; color: var(--muted); margin-bottom: 1.25rem; }
     .subtitle a { color: var(--accent); }
     section {
       background: var(--surface);
@@ -44,43 +44,62 @@
       margin-bottom: 0.75rem;
       font-weight: 600;
     }
-    p.lead { font-size: 0.92rem; color: var(--text); margin-bottom: 0.75rem; }
-    p.small { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.5rem; }
-    ul { margin: 0.5rem 0 0.5rem 1.25rem; font-size: 0.9rem; color: var(--muted); }
+    p.lead { font-size: 0.95rem; color: var(--text); margin-bottom: 0.65rem; }
+    p.small { font-size: 0.82rem; color: var(--muted); margin-bottom: 0.45rem; }
+    ul { margin: 0.45rem 0 0.45rem 1.2rem; font-size: 0.9rem; color: var(--muted); }
     ul strong { color: var(--text); }
+    .kpi-row { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 0.75rem 0; }
+    .kpi {
+      flex: 1;
+      min-width: 140px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+    }
+    .kpi .num { font-size: 1.35rem; font-weight: 700; color: var(--accent); }
+    .kpi .lbl { font-size: 0.78rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; margin-top: 0.2rem; }
     .insight-box {
       background: var(--bg);
       border: 2px solid var(--success);
       border-radius: 8px;
       padding: 1rem 1.25rem;
-      margin-bottom: 0.75rem;
+      margin-top: 0.75rem;
     }
-    .insight-box .label { font-size: 0.8rem; font-weight: 700; color: var(--success); margin-bottom: 0.35rem; text-transform: uppercase; letter-spacing: 0.04em; }
-    .insight-box .desc { font-size: 0.9rem; color: var(--muted); }
+    .insight-box .label { font-size: 0.78rem; font-weight: 700; color: var(--success); margin-bottom: 0.35rem; text-transform: uppercase; letter-spacing: 0.04em; }
+    .insight-box .desc { font-size: 0.88rem; color: var(--muted); }
     .warning-box {
       background: var(--bg);
       border: 2px solid var(--warning);
       border-radius: 8px;
       padding: 1rem 1.25rem;
-      margin-bottom: 0.75rem;
+      margin-top: 0.65rem;
     }
-    .warning-box .label { font-size: 0.8rem; font-weight: 700; color: var(--warning); margin-bottom: 0.35rem; text-transform: uppercase; }
-    .warning-box .desc { font-size: 0.9rem; color: var(--muted); }
-    table { width: 100%; border-collapse: collapse; margin: 0.5rem 0; font-size: 0.88rem; }
-    th { text-align: left; color: var(--muted); font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.03em; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--border); }
-    td { padding: 0.5rem 0.75rem; border-bottom: 1px solid rgba(51,65,85,0.5); vertical-align: top; }
+    .warning-box .label { font-size: 0.78rem; font-weight: 700; color: var(--warning); margin-bottom: 0.35rem; text-transform: uppercase; }
+    .warning-box .desc { font-size: 0.88rem; color: var(--muted); }
+    .verify-box {
+      background: var(--bg);
+      border: 1px dashed var(--border);
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      margin-top: 0.75rem;
+    }
+    .verify-box .label { font-size: 0.72rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.4rem; }
+    .verify-box ul { font-size: 0.78rem; margin-left: 1rem; }
+    table { width: 100%; border-collapse: collapse; margin: 0.5rem 0; font-size: 0.85rem; }
+    th { text-align: left; color: var(--muted); font-weight: 600; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.03em; padding: 0.45rem 0.65rem; border-bottom: 1px solid var(--border); }
+    td { padding: 0.45rem 0.65rem; border-bottom: 1px solid rgba(51,65,85,0.5); vertical-align: top; }
     tr:last-child td { border-bottom: none; }
     .highlight { color: var(--accent); font-weight: 600; }
     .positive { color: var(--success); font-weight: 600; }
     .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
     @media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
-    code { font-size: 0.82rem; background: var(--bg); padding: 0.1rem 0.35rem; border-radius: 4px; border: 1px solid var(--border); }
-    .footer { text-align: center; font-size: 0.8rem; color: var(--muted); margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border); }
-    .footer code { word-break: break-all; }
+    .footer { text-align: center; font-size: 0.75rem; color: var(--muted); margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+    .footer a { color: var(--muted); }
     @media print {
       body { padding: 1rem; background: #fff; color: #111; }
       section { background: #f8fafc; border-color: #e2e8f0; }
-      h1, .highlight { color: #0369a1; }
+      h1, .highlight, .kpi .num { color: #0369a1; }
       .insight-box { border-color: #16a34a; background: #f0fdf4; }
       .warning-box { border-color: #d97706; background: #fffbeb; }
       th { color: #475569; }
@@ -89,142 +108,135 @@
 </head>
 <body>
 
-  <h1>DP Payments — Search badges &amp; ranking boost</h1>
-  <p class="subtitle">Monolith (Search App + Search Bridge) · Marketplace payment search index · DB snapshot <strong style="color:var(--text);">2026-04-13</strong> · Countries: BR, ES, IT, MX, PL</p>
+  <h1>DP Payments in search — what patients see &amp; when it moves the needle</h1>
+  <p class="subtitle">One-pager for stakeholders · Operational data snapshot: <strong style="color:var(--text);">13 Apr 2026</strong> · Five active markets: Brazil, Spain, Italy, Mexico, Poland</p>
 
-  <!-- WHAT -->
   <section>
-    <h2>What this feature is</h2>
-    <p class="lead">Patient-facing search cards can show <strong>trust signals</strong> tied to DP Payments, and the same signals feed <strong>optional ranking factors</strong> when sorting by “Recommended”.</p>
+    <h2>In one minute</h2>
+    <p class="lead">In patient search we can show <strong>short trust cues</strong> linked to paying through Docplanner (e.g. “secure payments”, and where data supports it a “patients like paying online here” style message). Separately, the same underlying flags can add a <strong>small scoring bonus</strong> in search — but <strong>only inside the “Recommended” ranking recipe</strong> defined in our backend (see verification box below). They are <strong>not</strong> part of the simpler “sort by rating” recipe in that same configuration.</p>
+    <div class="kpi-row">
+      <div class="kpi"><div class="num">19,137</div><div class="lbl">Doctors with any payment signal (5 markets, summed)</div></div>
+      <div class="kpi"><div class="num">889</div><div class="lbl">Facilities with any payment signal (5 markets, summed)</div></div>
+      <div class="kpi"><div class="num">92,403</div><div class="lbl">Indexed doctor + facility addresses (rows)</div></div>
+    </div>
+    <p class="small">“Any payment signal” = at least one address row with online payments on, or “frequently paid” messaging flag, or a non-base commercial tier. Figures from production-style DBs; definitions in the tables further down.</p>
+  </section>
+
+  <section>
+    <h2>What appears on the card (patient view)</h2>
     <ul>
-      <li><strong>“Secure payments” badge</strong> — shown per address when online payments are flagged as enabled in the payment search index (<code>payments_enabled</code> → <code>has_badge</code> / <code>hasBadge</code> in the search payload). Template: <code>SearchBridgeBundle/Resources/views/SearchApp/info.block.html.twig</code>.</li>
-      <li><strong>“Renowned specialist / facility” line</strong> — driven by <code>frequently_paid</code> (<code>has_frequent_badge</code> / <code>hasFrequentBadge</code>). Copy differs for doctor vs facility. Template: <code>paymentsRenownBadge.block.html.twig</code>.</li>
-      <li><strong>Ranking</strong> — <code>AddressPaymentsDocumentBuilder</code> writes Elasticsearch-style <code>factors.payments_*</code> fields used by Search Bridge factors (<code>PaymentsHasBadgeFactor</code>, <code>PaymentsFrequentlyPaidFactor</code>, <code>PaymentsTierFactor</code>).</li>
+      <li><strong>Secure payments badge</strong> — when that <em>location</em> is marked as having online payments enabled in our search index. (Shown only in markets where the feature gate is on.)</li>
+      <li><strong>“Renowned” / popularity line</strong> — when a separate “frequently paid” flag is set; wording differs for an individual specialist vs a facility.</li>
     </ul>
     <div class="warning-box">
-      <div class="label">Product caveat</div>
-      <div class="desc">The “secure payments” badge is determined at <strong>address / account</strong> level in the index, not per priced service. A known gap exists where the badge may show even when no service can actually be paid online (e.g. all “price from”). Eligibility at booking uses stricter checks (<code>GetMarketplacePaymentFlow</code>).</div>
+      <div class="label">Why finance / support should care</div>
+      <div class="desc">The badge reflects <strong>account + address level</strong> setup in the index, not “this exact service has a fixed online price”. In edge cases the badge can show while checkout still blocks payment (e.g. only “price from” services). Booking-time rules are stricter than the search badge.</div>
     </div>
   </section>
 
-  <!-- COUNTRIES -->
   <section>
-    <h2>Country &amp; entity behaviour</h2>
-    <p class="small">Gate: <code>GATE_PAYMENTS_BADGES_ON_SEARCH_RESULTS</code> in <code>GateKeeper.class.php</code> — enabled only for <span class="highlight">br, es, it, mx, pl</span>. Outside these markets, payment badge factors return an empty definition and payment index documents for search are not built.</p>
+    <h2>Markets &amp; who it applies to</h2>
+    <p class="lead">Feature gate <strong>on</strong> only for: <span class="highlight">Brazil, Spain, Italy, Mexico, Poland</span>. Same list for specialists and for facilities — there is no second country matrix per entity type.</p>
     <div class="two-col">
       <div>
-        <p class="lead" style="margin-bottom:0.5rem;">Doctors</p>
-        <ul>
-          <li>Parent row: <code>crm_marketplace_payment_search_index.doctor_id</code></li>
-          <li>Address row: <code>crm_marketplace_payment_search_index_address.address_id</code></li>
-          <li>Indexing also considers rows with <code>promoted_doctor_id</code> when resolving which doctors to update</li>
-        </ul>
+        <p class="lead" style="font-size:0.9rem;margin-bottom:0.4rem;">Specialists</p>
+        <p class="small">Signals are stored per <strong>doctor practice address</strong>. The system can also pick up related “promoted” doctor links when rebuilding the index.</p>
       </div>
       <div>
-        <p class="lead" style="margin-bottom:0.5rem;">Facilities</p>
-        <ul>
-          <li>Parent row: <code>crm_marketplace_payment_search_index.facility_id</code></li>
-          <li>Address row: <code>facility_address_id</code></li>
-          <li>UI uses facility-specific translation keys for the “renowned” line</li>
-        </ul>
+        <p class="lead" style="font-size:0.9rem;margin-bottom:0.4rem;">Facilities</p>
+        <p class="small">Signals are stored per <strong>facility location</strong> (facility address), tied to that facility’s payment profile.</p>
       </div>
     </div>
-    <p class="small" style="margin-top:0.75rem;">There is no separate country list for doctors vs facilities: the same five countries apply; the split is <strong>entity type</strong> and how the address key is stored.</p>
   </section>
 
-  <!-- WEIGHTS -->
   <section>
-    <h2>Search factor weights (<code>search_factor</code>)</h2>
-    <p class="small">Verified on <code>zl_general_pl_broad</code>; names are shared across instances.</p>
+    <h2>Search ranking — “Recommended” vs “Rating”</h2>
+    <p class="lead">Backend configuration (<code>app/config/misc/search_bridge.yml</code> in monolith-app) lists <strong>many</strong> ingredients for the <strong>recommended</strong> sorter — including the five payment-related boosts. The <strong>rating</strong> sorter in that same file only lists <strong>rating</strong> and <strong>raw_score</strong>; none of the payment boosts appear there.</p>
+    <p class="small">Other sorters in that file (<strong>suggested</strong>, <strong>search_assistant_priority</strong>, etc.) also do <strong>not</strong> include the payment boosts. We did <strong>not</strong> re-check here which option the patient app selects by default — only what the backend attaches to each named sorter.</p>
+    <div class="verify-box">
+      <div class="label">Checked in code (no guesswork)</div>
+      <ul>
+        <li><strong>Where payment boosts sit:</strong> only under <code>sorters → recommended → factors</code> — lines that register <code>payments_has_badge</code>, <code>payments_frequently_paid</code>, <code>payments_tier_1</code>, <code>payments_tier_2</code>, <code>payments_tier_3</code>. File: <code>monolith-app/app/config/misc/search_bridge.yml</code>.</li>
+        <li><strong>Where they do not sit:</strong> <code>sorters → rating → factors</code> lists only <code>rating</code> and <code>raw_score</code> in that file.</li>
+        <li><strong>Gate for boosts + indexing:</strong> factor classes return nothing when <code>GATE_PAYMENTS_BADGES_ON_SEARCH_RESULTS</code> is off — <code>GateKeeper.class.php</code> enables that gate for br, es, it, mx, pl.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>How strong is each boost? (weights in database)</h2>
+    <p class="small">Numbers come from table <code>search_factor</code> (verified on Poland DB; names repeat per country). Higher = more influence when that signal is on. Several signals can apply at once.</p>
     <table>
       <thead>
-        <tr><th>ID</th><th>Name</th><th>Weight</th></tr>
+        <tr><th>Business signal</th><th>Weight</th></tr>
       </thead>
       <tbody>
-        <tr><td>37</td><td><code>payments_has_badge</code></td><td class="highlight">20</td></tr>
-        <tr><td>38</td><td><code>payments_frequently_paid</code></td><td class="highlight">30</td></tr>
-        <tr><td>40</td><td><code>payments_tier_1</code></td><td class="highlight">10</td></tr>
-        <tr><td>41</td><td><code>payments_tier_2</code></td><td class="highlight">20</td></tr>
-        <tr><td>42</td><td><code>payments_tier_3</code></td><td class="highlight">30</td></tr>
-      </tbody>
-    </table>
-    <table>
-      <thead>
-        <tr><th>DB column</th><th>Factor field</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><code>payments_enabled = 1</code></td><td><code>factors.payments_has_badge</code></td></tr>
-        <tr><td><code>frequently_paid = 1</code></td><td><code>factors.payments_frequently_paid</code></td></tr>
-        <tr><td><code>payment_tier = tier_1</code></td><td><code>factors.payments_tier_1</code></td></tr>
-        <tr><td><code>payment_tier = tier_2</code></td><td><code>factors.payments_tier_2</code></td></tr>
-        <tr><td><code>payment_tier = tier_3</code></td><td><code>factors.payments_tier_3</code></td></tr>
-        <tr><td><code>payment_tier = tier_0</code></td><td>No tier factor boost</td></tr>
+        <tr><td>Secure payments (badge)</td><td class="highlight">20</td></tr>
+        <tr><td>Frequently paid / “renowned” line</td><td class="highlight">30</td></tr>
+        <tr><td>Commercial tier — level 1</td><td class="highlight">10</td></tr>
+        <tr><td>Commercial tier — level 2</td><td class="highlight">20</td></tr>
+        <tr><td>Commercial tier — level 3</td><td class="highlight">30</td></tr>
       </tbody>
     </table>
   </section>
 
-  <!-- STATS -->
   <section>
-    <h2>Indexed addresses &amp; entities (2026-04-13)</h2>
-    <p class="small">Source: <code>crm_marketplace_payment_search_index_address</code> joined to <code>crm_marketplace_payment_search_index</code> on <code>broad.docplanner</code>. Counts per factor are <strong>non-exclusive</strong> (one address can contribute to several factors).</p>
+    <h2>Scale snapshot (13 Apr 2026)</h2>
+    <p class="small">Source: marketplace payment search index tables on <code>broad.docplanner</code>. Counts per column are overlapping (one address can count toward more than one column).</p>
 
-    <p class="lead" style="margin-top:1rem;">Doctor addresses (<code>doctor_id</code> + <code>address_id</code>)</p>
+    <p class="lead" style="margin-top:0.75rem;font-size:0.88rem;">Specialist practice addresses</p>
     <table>
       <thead>
         <tr>
-          <th>Database</th>
-          <th>Rows</th>
-          <th>has_badge</th>
-          <th>frequently_paid</th>
-          <th>tier_1</th>
-          <th>tier_2</th>
-          <th>tier_3</th>
-          <th>Unique doctors (any factor)</th>
+          <th>Market</th>
+          <th>Indexed addresses</th>
+          <th>With secure-payments signal</th>
+          <th>With “frequently paid”</th>
+          <th>Tier 1 / 2 / 3</th>
+          <th>Unique doctors (≥1 signal)</th>
         </tr>
       </thead>
       <tbody>
-        <tr><td>zl_general_br_broad</td><td>21,514</td><td>10,163</td><td>0</td><td>911</td><td>94</td><td>66</td><td class="positive">5,663</td></tr>
-        <tr><td>zl_general_es_broad</td><td>7,072</td><td>3,468</td><td>0</td><td>327</td><td>43</td><td>15</td><td class="positive">2,164</td></tr>
-        <tr><td>zl_general_it_broad</td><td>16,721</td><td>6,922</td><td>0</td><td>391</td><td>30</td><td>10</td><td class="positive">4,034</td></tr>
-        <tr><td>zl_general_mx_broad</td><td>13,659</td><td>5,572</td><td>0</td><td>924</td><td>115</td><td>82</td><td class="positive">3,582</td></tr>
-        <tr><td>zl_general_pl_broad</td><td>10,364</td><td>5,890</td><td>299</td><td>1,474</td><td>171</td><td>128</td><td class="positive">3,694</td></tr>
-        <tr><td><strong>Total (5 countries)</strong></td><td><strong>69,330</strong></td><td><strong>32,015</strong></td><td><strong>299</strong></td><td><strong>4,027</strong></td><td><strong>453</strong></td><td><strong>301</strong></td><td class="positive"><strong>19,137</strong></td></tr>
+        <tr><td>Brazil</td><td>21,514</td><td>10,163</td><td>0</td><td>911 / 94 / 66</td><td class="positive">5,663</td></tr>
+        <tr><td>Spain</td><td>7,072</td><td>3,468</td><td>0</td><td>327 / 43 / 15</td><td class="positive">2,164</td></tr>
+        <tr><td>Italy</td><td>16,721</td><td>6,922</td><td>0</td><td>391 / 30 / 10</td><td class="positive">4,034</td></tr>
+        <tr><td>Mexico</td><td>13,659</td><td>5,572</td><td>0</td><td>924 / 115 / 82</td><td class="positive">3,582</td></tr>
+        <tr><td>Poland</td><td>10,364</td><td>5,890</td><td>299</td><td>1,474 / 171 / 128</td><td class="positive">3,694</td></tr>
+        <tr><td><strong>All five</strong></td><td><strong>69,330</strong></td><td><strong>32,015</strong></td><td><strong>299</strong></td><td>—</td><td class="positive"><strong>19,137</strong></td></tr>
       </tbody>
     </table>
-    <p class="small"><strong>Unique doctors</strong> = distinct <code>doctor_id</code> with at least one row where <code>payments_enabled = 1</code> OR <code>frequently_paid = 1</code> OR <code>payment_tier</code> ∈ {tier_1, tier_2, tier_3}. Totals sum across country DBs (IDs are not shared across countries).</p>
 
-    <p class="lead" style="margin-top:1rem;">Facility addresses (<code>facility_id</code> + <code>facility_address_id</code>)</p>
+    <p class="lead" style="margin-top:1rem;font-size:0.88rem;">Facility locations</p>
     <table>
       <thead>
         <tr>
-          <th>Database</th>
-          <th>Rows</th>
-          <th>has_badge</th>
-          <th>frequently_paid</th>
-          <th>tier_1</th>
-          <th>tier_2</th>
-          <th>tier_3</th>
-          <th>Unique facilities (any factor)</th>
+          <th>Market</th>
+          <th>Indexed addresses</th>
+          <th>With secure-payments signal</th>
+          <th>With “frequently paid”</th>
+          <th>Tier 1 / 2 / 3</th>
+          <th>Unique facilities (≥1 signal)</th>
         </tr>
       </thead>
       <tbody>
-        <tr><td>zl_general_br_broad</td><td>2,271</td><td>635</td><td>0</td><td>4</td><td>2</td><td>0</td><td class="positive">69</td></tr>
-        <tr><td>zl_general_es_broad</td><td>3,475</td><td>799</td><td>0</td><td>12</td><td>0</td><td>0</td><td class="positive">105</td></tr>
-        <tr><td>zl_general_it_broad</td><td>1,555</td><td>338</td><td>0</td><td>6</td><td>0</td><td>0</td><td class="positive">47</td></tr>
-        <tr><td>zl_general_mx_broad</td><td>1,181</td><td>426</td><td>0</td><td>2</td><td>0</td><td>0</td><td class="positive">70</td></tr>
-        <tr><td>zl_general_pl_broad</td><td>14,591</td><td>5,268</td><td>15</td><td>161</td><td>9</td><td>6</td><td class="positive">598</td></tr>
-        <tr><td><strong>Total (5 countries)</strong></td><td><strong>23,073</strong></td><td><strong>7,466</strong></td><td><strong>15</strong></td><td><strong>185</strong></td><td><strong>11</strong></td><td><strong>6</strong></td><td class="positive"><strong>889</strong></td></tr>
+        <tr><td>Brazil</td><td>2,271</td><td>635</td><td>0</td><td>4 / 2 / 0</td><td class="positive">69</td></tr>
+        <tr><td>Spain</td><td>3,475</td><td>799</td><td>0</td><td>12 / 0 / 0</td><td class="positive">105</td></tr>
+        <tr><td>Italy</td><td>1,555</td><td>338</td><td>0</td><td>6 / 0 / 0</td><td class="positive">47</td></tr>
+        <tr><td>Mexico</td><td>1,181</td><td>426</td><td>0</td><td>2 / 0 / 0</td><td class="positive">70</td></tr>
+        <tr><td>Poland</td><td>14,591</td><td>5,268</td><td>15</td><td>161 / 9 / 6</td><td class="positive">598</td></tr>
+        <tr><td><strong>All five</strong></td><td><strong>23,073</strong></td><td><strong>7,466</strong></td><td><strong>15</strong></td><td>—</td><td class="positive"><strong>889</strong></td></tr>
       </tbody>
     </table>
 
     <div class="insight-box">
-      <div class="label">Takeaway</div>
-      <div class="desc"><code>frequently_paid</code> (the “renowned / popular payer” messaging) is populated almost only in <strong>PL</strong> in this snapshot; other gate countries had <strong>zero</strong> facility/doctor index rows with that flag except the small PL facility sample above.</div>
+      <div class="label">Insight</div>
+      <div class="desc">On this date, the “frequently paid” / renowned line was almost only populated in <strong>Poland</strong>; other markets showed that flag at zero for both tables (except the small PL facility counts above).</div>
     </div>
+    <p class="small">Doctor and facility totals across countries are sums of separate national databases (IDs are not shared across markets).</p>
   </section>
 
   <div class="footer">
-    Repo: <a href="https://github.com/annamariakrol/badges-and-boost" style="color: var(--muted);">github.com/annamariakrol/badges-and-boost</a> · SQL artifacts (internal): Database structure with AI — <code>queries/2026-04-13_11-53-44_payments-badges-search-boost-stats/</code>
+    <a href="https://github.com/annamariakrol/badges-and-boost">github.com/annamariakrol/badges-and-boost</a> · Internal SQL folder: <code>queries/2026-04-13_11-53-44_payments-badges-search-boost-stats/</code>
   </div>
 </body>
 </html>
