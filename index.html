@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>DP Payments — Trust in search &amp; ranking impact</title>
+  <title>DP Payments — visibility in search scoring</title>
   <style>
     :root {
       --bg: #0f172a;
@@ -13,7 +13,6 @@
       --accent: #38bdf8;
       --success: #34d399;
       --warning: #fbbf24;
-      --danger: #f87171;
       --border: #334155;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -28,7 +27,6 @@
     }
     h1 { font-size: 1.65rem; font-weight: 700; color: var(--accent); margin-bottom: 0.35rem; }
     .subtitle { font-size: 0.9rem; color: var(--muted); margin-bottom: 1.25rem; }
-    .subtitle a { color: var(--accent); }
     section {
       background: var(--surface);
       border-radius: 8px;
@@ -68,15 +66,6 @@
     }
     .insight-box .label { font-size: 0.78rem; font-weight: 700; color: var(--success); margin-bottom: 0.35rem; text-transform: uppercase; letter-spacing: 0.04em; }
     .insight-box .desc { font-size: 0.88rem; color: var(--muted); }
-    .warning-box {
-      background: var(--bg);
-      border: 2px solid var(--warning);
-      border-radius: 8px;
-      padding: 1rem 1.25rem;
-      margin-top: 0.65rem;
-    }
-    .warning-box .label { font-size: 0.78rem; font-weight: 700; color: var(--warning); margin-bottom: 0.35rem; text-transform: uppercase; }
-    .warning-box .desc { font-size: 0.88rem; color: var(--muted); }
     .verify-box {
       background: var(--bg);
       border: 1px dashed var(--border);
@@ -94,6 +83,7 @@
     .positive { color: var(--success); font-weight: 600; }
     .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
     @media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
+    code { font-size: 0.8rem; background: var(--bg); padding: 0.08rem 0.3rem; border-radius: 4px; border: 1px solid var(--border); }
     .footer { text-align: center; font-size: 0.75rem; color: var(--muted); margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--border); }
     .footer a { color: var(--muted); }
     @media print {
@@ -101,97 +91,92 @@
       section { background: #f8fafc; border-color: #e2e8f0; }
       h1, .highlight, .kpi .num { color: #0369a1; }
       .insight-box { border-color: #16a34a; background: #f0fdf4; }
-      .warning-box { border-color: #d97706; background: #fffbeb; }
       th { color: #475569; }
     }
   </style>
 </head>
 <body>
 
-  <h1>DP Payments in search — what patients see &amp; when it moves the needle</h1>
-  <p class="subtitle">One-pager for stakeholders · Operational data snapshot: <strong style="color:var(--text);">13 Apr 2026</strong> · Five active markets: Brazil, Spain, Italy, Mexico, Poland</p>
+  <h1>DP Payments — visibility in search scoring</h1>
+  <p class="subtitle">Focus: <strong style="color:var(--text);">payment-related score contributions</strong> only · Snapshot: <strong style="color:var(--text);">13 Apr 2026</strong> · Markets: Brazil, Spain, Italy, Mexico, Poland</p>
 
   <section>
-    <h2>In one minute</h2>
-    <p class="lead">In patient search we can show <strong>short trust cues</strong> linked to paying through Docplanner (e.g. “secure payments”, and where data supports it a “patients like paying online here” style message). Separately, the same underlying flags can add a <strong>small scoring bonus</strong> in search — but <strong>only inside the “Recommended” ranking recipe</strong> defined in our backend (see verification box below). They are <strong>not</strong> part of the simpler “sort by rating” recipe in that same configuration.</p>
-    <div class="kpi-row">
-      <div class="kpi"><div class="num">19,137</div><div class="lbl">Doctors with any payment signal (5 markets, summed)</div></div>
-      <div class="kpi"><div class="num">889</div><div class="lbl">Facilities with any payment signal (5 markets, summed)</div></div>
-      <div class="kpi"><div class="num">92,403</div><div class="lbl">Indexed doctor + facility addresses (rows)</div></div>
-    </div>
-    <p class="small">“Any payment signal” = at least one address row with online payments on, or “frequently paid” messaging flag, or a non-base commercial tier. Figures from production-style DBs; definitions in the tables further down.</p>
+    <h2>Scope of this note</h2>
+    <p class="lead">This page describes <strong>how DP Payments signals can change search positioning</strong> (extra score when a signal is on). It does <strong>not</strong> explain the rest of the search algorithm or other non-payment boosts.</p>
+    <p class="small">Scoring reads the same marketplace payment index flags used elsewhere; rules at booking time can still differ from what the index records.</p>
   </section>
 
   <section>
-    <h2>What appears on the card (patient view)</h2>
+    <h2>Five payment signals that can add score</h2>
+    <p class="small">When a signal is true for an indexed address, it can contribute its weight toward the blended score — alongside many non-payment ingredients. More than one payment signal can be true at once.</p>
     <ul>
-      <li><strong>Secure payments badge</strong> — when that <em>location</em> is marked as having online payments enabled in our search index. (Shown only in markets where the feature gate is on.)</li>
-      <li><strong>“Renowned” / popularity line</strong> — when a separate “frequently paid” flag is set; wording differs for an individual specialist vs a facility.</li>
+      <li><strong>Online payments on</strong> for that address (secure-payments path in the index).</li>
+      <li><strong>Frequently paid</strong> flag (stronger “momentum” signal in the index).</li>
+      <li><strong>Commercial tier</strong> — three levels; base tier adds no tier score.</li>
     </ul>
-    <div class="warning-box">
-      <div class="label">Why finance / support should care</div>
-      <div class="desc">The badge reflects <strong>account + address level</strong> setup in the index, not “this exact service has a fixed online price”. In edge cases the badge can show while checkout still blocks payment (e.g. only “price from” services). Booking-time rules are stricter than the search badge.</div>
+    <div class="kpi-row">
+      <div class="kpi"><div class="num">19,137</div><div class="lbl">Doctors with ≥1 payment signal (5 markets, summed)</div></div>
+      <div class="kpi"><div class="num">889</div><div class="lbl">Facilities with ≥1 payment signal (5 markets, summed)</div></div>
+      <div class="kpi"><div class="num">92,403</div><div class="lbl">Indexed specialist + facility address rows</div></div>
     </div>
   </section>
 
   <section>
-    <h2>Markets &amp; who it applies to</h2>
-    <p class="lead">Feature gate <strong>on</strong> only for: <span class="highlight">Brazil, Spain, Italy, Mexico, Poland</span>. Same list for specialists and for facilities — there is no second country matrix per entity type.</p>
-    <div class="two-col">
-      <div>
-        <p class="lead" style="font-size:0.9rem;margin-bottom:0.4rem;">Specialists</p>
-        <p class="small">Signals are stored per <strong>doctor practice address</strong>. The system can also pick up related “promoted” doctor links when rebuilding the index.</p>
-      </div>
-      <div>
-        <p class="lead" style="font-size:0.9rem;margin-bottom:0.4rem;">Facilities</p>
-        <p class="small">Signals are stored per <strong>facility location</strong> (facility address), tied to that facility’s payment profile.</p>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <h2>Search ranking — “Recommended” vs “Rating”</h2>
-    <p class="lead">Backend configuration (<code>app/config/misc/search_bridge.yml</code> in monolith-app) lists <strong>many</strong> ingredients for the <strong>recommended</strong> sorter — including the five payment-related boosts. The <strong>rating</strong> sorter in that same file only lists <strong>rating</strong> and <strong>raw_score</strong>; none of the payment boosts appear there.</p>
-    <p class="small">Other sorters in that file (<strong>suggested</strong>, <strong>search_assistant_priority</strong>, etc.) also do <strong>not</strong> include the payment boosts. We did <strong>not</strong> re-check here which option the patient app selects by default — only what the backend attaches to each named sorter.</p>
+    <h2>Where in the backend this is wired</h2>
+    <p class="lead">In monolith-app, the five payment score hooks are <strong>registered only on the <code>recommended</code> sorter</strong> in <code>app/config/misc/search_bridge.yml</code>. They are not listed under the other sorter ids in that same file.</p>
+    <p class="small">Whether a given patient session actually uses that sorter is a product/UI question — this document only states what the backend attaches to the <code>recommended</code> profile.</p>
     <div class="verify-box">
-      <div class="label">Checked in code (no guesswork)</div>
+      <div class="label">Verified in repo</div>
       <ul>
-        <li><strong>Where payment boosts sit:</strong> only under <code>sorters → recommended → factors</code> — lines that register <code>payments_has_badge</code>, <code>payments_frequently_paid</code>, <code>payments_tier_1</code>, <code>payments_tier_2</code>, <code>payments_tier_3</code>. File: <code>monolith-app/app/config/misc/search_bridge.yml</code>.</li>
-        <li><strong>Where they do not sit:</strong> <code>sorters → rating → factors</code> lists only <code>rating</code> and <code>raw_score</code> in that file.</li>
-        <li><strong>Gate for boosts + indexing:</strong> factor classes return nothing when <code>GATE_PAYMENTS_BADGES_ON_SEARCH_RESULTS</code> is off — <code>GateKeeper.class.php</code> enables that gate for br, es, it, mx, pl.</li>
+        <li><code>sorters → recommended → factors</code> includes <code>payments_has_badge</code>, <code>payments_frequently_paid</code>, <code>payments_tier_1</code>, <code>payments_tier_2</code>, <code>payments_tier_3</code>.</li>
+        <li>Those five identifiers do not appear under other <code>sorters</code> keys in that YAML file.</li>
+        <li>Gate <code>GATE_PAYMENTS_BADGES_ON_SEARCH_RESULTS</code> in <code>GateKeeper.class.php</code>: br, es, it, mx, pl — when off, the payment factor classes contribute nothing.</li>
       </ul>
     </div>
   </section>
 
   <section>
-    <h2>How strong is each boost? (weights in database)</h2>
-    <p class="small">Numbers come from table <code>search_factor</code> (verified on Poland DB; names repeat per country). Higher = more influence when that signal is on. Several signals can apply at once.</p>
+    <h2>Markets &amp; entity shape</h2>
+    <p class="lead">Payment scoring (and related indexing) is gated to: <span class="highlight">Brazil, Spain, Italy, Mexico, Poland</span> — same five for specialists and facilities.</p>
+    <div class="two-col">
+      <div>
+        <p class="lead" style="font-size:0.9rem;margin-bottom:0.4rem;">Specialists</p>
+        <p class="small">Signals are stored per <strong>practice address</strong>; promoted-doctor links can also feed index rebuilds.</p>
+      </div>
+      <div>
+        <p class="lead" style="font-size:0.9rem;margin-bottom:0.4rem;">Facilities</p>
+        <p class="small">Signals are stored per <strong>facility location</strong> (facility address).</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Relative weights (<code>search_factor</code> table)</h2>
+    <p class="small">Poland DB checked; factor names repeat per country. Higher = stronger contribution when the signal is on.</p>
     <table>
       <thead>
-        <tr><th>Business signal</th><th>Weight</th></tr>
+        <tr><th>Signal (business)</th><th>Weight</th></tr>
       </thead>
       <tbody>
-        <tr><td>Secure payments (badge)</td><td class="highlight">20</td></tr>
-        <tr><td>Frequently paid / “renowned” line</td><td class="highlight">30</td></tr>
-        <tr><td>Commercial tier — level 1</td><td class="highlight">10</td></tr>
-        <tr><td>Commercial tier — level 2</td><td class="highlight">20</td></tr>
-        <tr><td>Commercial tier — level 3</td><td class="highlight">30</td></tr>
+        <tr><td>Online payments on (badge path)</td><td class="highlight">20</td></tr>
+        <tr><td>Frequently paid</td><td class="highlight">30</td></tr>
+        <tr><td>Tier 1 / 2 / 3</td><td class="highlight">10 / 20 / 30</td></tr>
       </tbody>
     </table>
   </section>
 
   <section>
-    <h2>Scale snapshot (13 Apr 2026)</h2>
-    <p class="small">Source: marketplace payment search index tables on <code>broad.docplanner</code>. Counts per column are overlapping (one address can count toward more than one column).</p>
+    <h2>Coverage snapshot (13 Apr 2026)</h2>
+    <p class="small">Source: marketplace payment search index on <code>broad.docplanner</code>. Column counts overlap (one row can hit several signals).</p>
 
     <p class="lead" style="margin-top:0.75rem;font-size:0.88rem;">Specialist practice addresses</p>
     <table>
       <thead>
         <tr>
           <th>Market</th>
-          <th>Indexed addresses</th>
-          <th>With secure-payments signal</th>
-          <th>With “frequently paid”</th>
+          <th>Rows</th>
+          <th>Online payments on</th>
+          <th>Frequently paid</th>
           <th>Tier 1 / 2 / 3</th>
           <th>Unique doctors (≥1 signal)</th>
         </tr>
@@ -211,9 +196,9 @@
       <thead>
         <tr>
           <th>Market</th>
-          <th>Indexed addresses</th>
-          <th>With secure-payments signal</th>
-          <th>With “frequently paid”</th>
+          <th>Rows</th>
+          <th>Online payments on</th>
+          <th>Frequently paid</th>
           <th>Tier 1 / 2 / 3</th>
           <th>Unique facilities (≥1 signal)</th>
         </tr>
@@ -229,14 +214,14 @@
     </table>
 
     <div class="insight-box">
-      <div class="label">Insight</div>
-      <div class="desc">On this date, the “frequently paid” / renowned line was almost only populated in <strong>Poland</strong>; other markets showed that flag at zero for both tables (except the small PL facility counts above).</div>
+      <div class="label">Data note</div>
+      <div class="desc">On this date, <strong>frequently paid</strong> was almost only set in <strong>Poland</strong>; other markets showed zero in these tables.</div>
     </div>
-    <p class="small">Doctor and facility totals across countries are sums of separate national databases (IDs are not shared across markets).</p>
+    <p class="small">Cross-market totals sum separate national databases (IDs are not shared between countries).</p>
   </section>
 
   <div class="footer">
-    <a href="https://github.com/annamariakrol/badges-and-boost">github.com/annamariakrol/badges-and-boost</a> · Internal SQL folder: <code>queries/2026-04-13_11-53-44_payments-badges-search-boost-stats/</code>
+    <a href="https://github.com/annamariakrol/badges-and-boost">github.com/annamariakrol/badges-and-boost</a> · SQL: <code>queries/2026-04-13_11-53-44_payments-badges-search-boost-stats/</code>
   </div>
 </body>
 </html>
