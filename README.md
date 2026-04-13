@@ -1,6 +1,6 @@
 # Badges & boost
 
-Stakeholder one-pager: **DP Payments in search** — trust cues on cards, ranking impact under “Recommended” (verified vs monolith `search_bridge.yml`), snapshot metrics.
+Stakeholder one-pager: **DP Payments visibility in search scoring** — payment signals, weights, coverage; backend scope (`recommended` sorter in `search_bridge.yml`), snapshot metrics.
 
 ## View in browser (no clone)
 
