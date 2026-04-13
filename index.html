@@ -297,7 +297,6 @@
       </tbody>
     </table>
     <p class="small"><strong>How to read this (verified in monolith):</strong> For <strong>visit</strong> pay-ins, <code>CreateMarketplaceVisitPaymentPayinCommandHandler</code> always sets <code>doctor_id</code> from the visit’s doctor. It sets <code>facility_id</code> from <code>address.facility_id</code> for the <strong>visit address</strong> (may be <code>NULL</code>), and <code>crm_customer_id</code> from the visit’s marketplace payment account. This table sums pay-ins whose <strong>account owner</strong> is a facility <code>crm_customer</code> in the cohort, so it still counts visits booked to a doctor when the address row has no <code>facility_id</code> but the money sits on the facility’s customer. It is <strong>not</strong> “patient chose facility with no doctor.”</p>
-    <p class="small">SQL and notes: <code>queries/2026-04-13_14-15-00_indexed-doctors-payin-2026-turnover/</code> (<code>query.sql</code>, <code>query-facilities.sql</code>).</p>
   </section>
 
   <div class="footer">
