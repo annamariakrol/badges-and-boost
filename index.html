@@ -248,8 +248,60 @@
     <p class="small">Cross-market totals sum separate national databases (IDs are not shared between countries).</p>
   </section>
 
+  <section>
+    <h2>2026 pay-in volume (same index cohorts)</h2>
+    <p class="small"><strong>Source:</strong> <code>crm_marketplace_payment_payin</code>, <code>status = 'successful'</code>, <code>payment_created_at</code> in calendar year <strong>2026</strong> (through the query date). <strong>Cohort</strong> = same definition as the coverage tables above (any payment signal on an indexed doctor address or facility address). Amounts are <code>gross_amount</code> per row; <strong>do not add across currencies</strong>.</p>
+
+    <p class="lead" style="margin-top:0.75rem;font-size:0.88rem;">Specialists — payins with <code>doctor_id</code> in cohort</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Market</th>
+          <th>Doctors in cohort</th>
+          <th>With ≥1 pay-in in 2026</th>
+          <th>Currency</th>
+          <th>Total gross</th>
+          <th>Pay-in rows</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Brazil</td><td>5,663</td><td>2,939</td><td>BRL</td><td class="highlight">11,431,413.06</td><td>37,734</td></tr>
+        <tr><td>Spain</td><td>2,164</td><td>1,262</td><td>EUR</td><td class="highlight">1,227,057.26</td><td>17,318</td></tr>
+        <tr><td>Italy</td><td>4,034</td><td>1,829</td><td>EUR</td><td class="highlight">1,156,168.25</td><td>15,913</td></tr>
+        <tr><td>Mexico</td><td>3,582</td><td>2,326</td><td>MXN</td><td class="highlight">31,918,911.01</td><td>34,156</td></tr>
+        <tr><td>Poland</td><td>3,694</td><td>3,097</td><td>PLN</td><td class="highlight">38,420,047.20</td><td>165,544</td></tr>
+        <tr><td><strong>All five (sum)</strong></td><td><strong>19,137</strong></td><td><strong>11,453</strong></td><td>—</td><td>—</td><td>—</td></tr>
+      </tbody>
+    </table>
+    <p class="small">Includes visit and custom flows that produce a pay-in row with <code>doctor_id</code>. Pay-ins with only a facility (no doctor) are excluded here.</p>
+
+    <p class="lead" style="margin-top:1rem;font-size:0.88rem;">Facilities — payins with <code>facility_id</code> in cohort</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Market</th>
+          <th>Facilities in cohort</th>
+          <th>With ≥1 pay-in in 2026</th>
+          <th>Currency</th>
+          <th>Total gross</th>
+          <th>Pay-in rows</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Brazil</td><td>69</td><td>47</td><td>BRL</td><td class="highlight">1,415,982.40</td><td>5,780</td></tr>
+        <tr><td>Spain</td><td>105</td><td>85</td><td>EUR</td><td class="highlight">236,636.41</td><td>3,556</td></tr>
+        <tr><td>Italy</td><td>47</td><td>31</td><td>EUR</td><td class="highlight">119,588.00</td><td>2,059</td></tr>
+        <tr><td>Mexico</td><td>70</td><td>56</td><td>MXN</td><td class="highlight">1,164,871.00</td><td>1,422</td></tr>
+        <tr><td>Poland</td><td>598</td><td>519</td><td>PLN</td><td class="highlight">16,132,529.67</td><td>64,061</td></tr>
+        <tr><td><strong>All five (sum)</strong></td><td><strong>889</strong></td><td><strong>738</strong></td><td>—</td><td>—</td><td>—</td></tr>
+      </tbody>
+    </table>
+    <p class="small"><strong>Caveat:</strong> many marketplace pay-ins are stored with <code>doctor_id</code> only. Those rows <strong>do not</strong> appear in the facility table even if the visit was at a facility — so facility totals can <strong>understate</strong> true facility-related volume. Use this table when <code>facility_id</code> is populated on the pay-in.</p>
+    <p class="small">SQL and notes: <code>queries/2026-04-13_14-15-00_indexed-doctors-payin-2026-turnover/</code> (<code>query.sql</code>, <code>query-facilities.sql</code>).</p>
+  </section>
+
   <div class="footer">
-    <a href="https://github.com/annamariakrol/badges-and-boost">github.com/annamariakrol/badges-and-boost</a> · SQL: <code>queries/2026-04-13_11-53-44_payments-badges-search-boost-stats/</code>
+    <a href="https://github.com/annamariakrol/badges-and-boost">github.com/annamariakrol/badges-and-boost</a> · Index snapshot SQL: <code>queries/2026-04-13_11-53-44_payments-badges-search-boost-stats/</code> · Pay-in 2026 SQL: <code>queries/2026-04-13_14-15-00_indexed-doctors-payin-2026-turnover/</code>
   </div>
 </body>
 </html>
