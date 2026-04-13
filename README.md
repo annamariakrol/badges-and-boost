@@ -1,6 +1,6 @@
 # Badges & boost
 
-Static one-pager: **DP Payments — search badges and ranking factors** (monolith / Search App, indexed addresses, `search_factor` weights).
+Stakeholder one-pager: **DP Payments in search** — trust cues on cards, ranking impact under “Recommended” (verified vs monolith `search_bridge.yml`), snapshot metrics.
 
 ## View in browser (no clone)
 
