@@ -112,7 +112,7 @@
     <ul>
       <li><strong>Online payments on</strong> for that address (secure-payments path in the index).</li>
       <li><strong>Frequently paid</strong> flag (stronger “momentum” signal in the index).</li>
-      <li><strong>Commercial tier</strong> — three levels; base tier adds no tier score.</li>
+      <li><strong>Activity tiers (1–3)</strong> — extra score when payment volume crosses each band for that address.</li>
     </ul>
     <div class="kpi-row">
       <div class="kpi"><div class="num">19,137</div><div class="lbl">Doctors with ≥1 payment signal (5 markets, summed)</div></div>
@@ -122,17 +122,17 @@
   </section>
 
   <section>
-    <h2>Payment tiers 0–3 (what they are)</h2>
-    <p class="lead">Tiers are <strong>buckets of counted marketplace payment activity</strong> per address. We refresh that picture on a rolling basis. <strong>Tiers 1–3</strong> unlock the tier part of the search boost; <strong>tier 0</strong> means no tier boost.</p>
+    <h2>Payment tiers 1–3 (activity bands)</h2>
+    <p class="lead">Tiers are <strong>buckets of counted marketplace payment activity</strong> per address. We refresh that picture on a rolling basis. <strong>Each of tiers 1–3</strong> adds its own slice of the search boost once volume crosses that band.</p>
     <p class="small"><strong>Poland</strong> uses paid-visit style counts; <strong>other active markets</strong> use paid transactions above a minimum value — still within a recent window.</p>
 
     <p class="lead" style="margin-top:0.85rem;font-size:0.9rem;">Specialists — typical practice address</p>
+    <p class="small">Applies where we attribute payment volume to that listing; other listing setups are outside this ladder.</p>
     <table>
       <thead>
         <tr><th>Tier</th><th>Payments counted for that address</th></tr>
       </thead>
       <tbody>
-        <tr><td>0</td><td>None — or listings where we don’t attribute payment volume to that profile line</td></tr>
         <tr><td>1</td><td>1–5</td></tr>
         <tr><td>2</td><td>6–10</td></tr>
         <tr><td>3</td><td>11 or more</td></tr>
@@ -140,7 +140,7 @@
     </table>
 
     <p class="lead" style="margin-top:0.85rem;font-size:0.9rem;">Facilities — location</p>
-    <p class="small">Here the bar moves with <strong>how many featured doctors</strong> are attached to the same address: a busier clinic needs more payments to reach tier 2 or 3 than a small one. If there are no featured doctors or no payments, the location stays at tier 0.</p>
+    <p class="small">Here the bar moves with <strong>how many featured doctors</strong> are attached to the same address: a busier clinic needs more payments to reach tier 2 or 3 than a small one. With no featured doctors or no payments, <strong>there is no tier boost</strong> for that location.</p>
 
     <div class="insight-box">
       <div class="label">Poland — “frequently paid” and tiers</div>
