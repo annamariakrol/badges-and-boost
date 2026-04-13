@@ -275,7 +275,7 @@
     </table>
     <p class="small">Includes visit and custom flows that produce a pay-in row with <code>doctor_id</code>. Pay-ins with only a facility (no doctor) are excluded here.</p>
 
-    <p class="lead" style="margin-top:1rem;font-size:0.88rem;">Facilities — payins with <code>facility_id</code> in cohort</p>
+    <p class="lead" style="margin-top:1rem;font-size:0.88rem;">Facilities — pay-ins on the facility’s marketplace account (<code>crm_customer.facility_id</code> in cohort)</p>
     <table>
       <thead>
         <tr>
@@ -288,15 +288,15 @@
         </tr>
       </thead>
       <tbody>
-        <tr><td>Brazil</td><td>69</td><td>47</td><td>BRL</td><td class="highlight">1,415,982.40</td><td>5,780</td></tr>
-        <tr><td>Spain</td><td>105</td><td>85</td><td>EUR</td><td class="highlight">236,636.41</td><td>3,556</td></tr>
-        <tr><td>Italy</td><td>47</td><td>31</td><td>EUR</td><td class="highlight">119,588.00</td><td>2,059</td></tr>
-        <tr><td>Mexico</td><td>70</td><td>56</td><td>MXN</td><td class="highlight">1,164,871.00</td><td>1,422</td></tr>
-        <tr><td>Poland</td><td>598</td><td>519</td><td>PLN</td><td class="highlight">16,132,529.67</td><td>64,061</td></tr>
-        <tr><td><strong>All five (sum)</strong></td><td><strong>889</strong></td><td><strong>738</strong></td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td>Brazil</td><td>69</td><td>47</td><td>BRL</td><td class="highlight">1,444,941.40</td><td>5,869</td></tr>
+        <tr><td>Spain</td><td>105</td><td>83</td><td>EUR</td><td class="highlight">237,890.75</td><td>3,564</td></tr>
+        <tr><td>Italy</td><td>47</td><td>30</td><td>EUR</td><td class="highlight">117,748.00</td><td>2,037</td></tr>
+        <tr><td>Mexico</td><td>70</td><td>57</td><td>MXN</td><td class="highlight">1,205,362.00</td><td>1,434</td></tr>
+        <tr><td>Poland</td><td>598</td><td>525</td><td>PLN</td><td class="highlight">17,406,817.17</td><td>68,292</td></tr>
+        <tr><td><strong>All five (sum)</strong></td><td><strong>889</strong></td><td><strong>742</strong></td><td>—</td><td>—</td><td>—</td></tr>
       </tbody>
     </table>
-    <p class="small"><strong>Caveat:</strong> many marketplace pay-ins are stored with <code>doctor_id</code> only. Those rows <strong>do not</strong> appear in the facility table even if the visit was at a facility — so facility totals can <strong>understate</strong> true facility-related volume. Use this table when <code>facility_id</code> is populated on the pay-in.</p>
+    <p class="small"><strong>How to read this:</strong> Bookings are usually to a <strong>specific doctor</strong>; this table still answers “how much successful pay-in volume runs through <strong>facility marketplace accounts</strong> in the boosted cohort,” including rows where the pay-in has a doctor but settlement is on the facility’s <code>crm_customer</code> (so <code>payin.facility_id</code> may be empty). It is <strong>not</strong> “patient chose facility with no doctor.”</p>
     <p class="small">SQL and notes: <code>queries/2026-04-13_14-15-00_indexed-doctors-payin-2026-turnover/</code> (<code>query.sql</code>, <code>query-facilities.sql</code>).</p>
   </section>
 
