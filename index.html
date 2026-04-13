@@ -123,7 +123,7 @@
 
   <section>
     <h2>Payment tiers 0–3 (what they are)</h2>
-    <p class="lead">Tiers are <strong>not</strong> a separate commercial “pricing package” in this index — they are <strong>buckets of counted marketplace payment activity</strong> per address. The index stores an integer <strong>payment count</strong>; tier is derived from it when the search index is rebuilt. Only <strong>tier 1–3</strong> turn on the tier part of the search score; <strong>tier 0</strong> means no tier boost.</p>
+    <p class="lead">Tiers are <strong>buckets of counted marketplace payment activity</strong> per address. The index stores an integer <strong>payment count</strong>; tier is derived from it when the search index is rebuilt. Only <strong>tier 1–3</strong> turn on the tier part of the search score; <strong>tier 0</strong> means no tier boost.</p>
     <p class="small">How the count is collected: rolling look-back from the index job; <strong>Poland</strong> pulls visit-payment counts, <strong>other markets</strong> use transaction totals with a minimum amount (see <code>ProfilePaymentCountProviderPoland</code> vs <code>ProfilePaymentCountProviderOther</code> in monolith-app).</p>
 
     <p class="lead" style="margin-top:0.85rem;font-size:0.9rem;">Specialists — own practice address (non-promoted)</p>
